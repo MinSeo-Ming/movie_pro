@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>영화 리뷰 + 유튜브 보기</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+
+        <!-- JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
+
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Nanum+Gothic+Coding&family=Open+Sans&display=swap" rel="stylesheet">
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+
+
+
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style type="text/css">
+        body{
+            overflow: auto;
+            background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700441686-1200x675.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        ::-webkit-scrollbar { display: none; }
+        .Movie_poster{
+            width: 100%;
+            position: static;
+            top:40px;
+            display: inline-block;
+
+        }
+        .d-block {
+            max-width: 100%;
+            position: relative;
+            height: 200px;
+        }
+
+        .cards{
+            width: 700px;
+            position: relative;
+            top :20px;
+            left: 30%;
+        }
+        .card{
+           margin-top: 5px;
+        }
+        .index{
+
+            top :50px;
+            position: relative;
+        }
+        .footer{
+            top :50px;
+            position: relative;
+        }
+        .drop{
+            float:left;
+
+        }
+        .drop_btn{
+            background-color: #4dd0e1;
+            border: #4dd0e1;
+            left: 20%;
+        }
+        .active-cyan-2 input.form-control[type=text]:focus:not([readonly]) {
+            border-bottom: 1px solid #4dd0e1;
+            box-shadow: 0 1px 0 0 #4dd0e1;
+        }
+        .active-cyan .fa, .active-cyan-2 .fa {
+            color: #4dd0e1;
+        }
+
+
+    </style>
+    <script>
+        $(document).ready(function (){
+            showMovie();
+        });
+
+        function showMovie(){
+            $('#movie-box').empty()
+
+            $.ajax({
+                type:'GET',
+                url:'api/list',
+                data: {},
+                success:function (response){
+                    let movies = response['']
+                }
+            })
+        }
+    </script>
+
+
+</head>
+<body>
+<!--유튜브 검색 나중에 다른 페이지로 옮겨갈 예정임-->
+    <div class ="container">
+        <br>
+
+        <h1>Mini you</h1>
+        <br>
+        <form id="form">
+            <div class="form-group">
+                <input type="text" nclass ="form-contorl" id="search">
+            </div>
+            <div class="form-group">
+                <input type="submit" class ="btn btn-danger" vlaue ="Search">
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-md-3">
+                <div id="videos">
+                    <p>test</p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="../sparta/Last_pro/video/script.js"></script>
+
+
+
+</body>
+</html>
