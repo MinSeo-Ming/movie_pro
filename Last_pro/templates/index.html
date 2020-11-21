@@ -5,201 +5,60 @@
     <title>영화 리뷰 + 유튜브 보기</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-              crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
 
-        <!-- JS -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-                crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-                crossorigin="anonymous"></script>
-
-        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Nanum+Gothic+Coding&family=Open+Sans&display=swap" rel="stylesheet">
-
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 
 
+    <script src="../static/main_re.js"></script>
 
-     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <style type="text/css">
-        body{
-            overflow: auto;
-            background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700441686-1200x675.jpg");
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_split.css') }}">
 
-        ::-webkit-scrollbar { display: none; }
-        .Movie_poster{
-            position: static;
-            top:40px;
-            width: 100%;
-            display: inline-block;
-            background: black;
-
-        }
-        .d-block {
-            width: auto;
-            position: relative;
-            height: 400px;
-        }
-
-        .cards{
-            width: 700px;
-            position: relative;
-            top :20px;
-            left: 30%;
-        }
-        .card{
-           margin-top: 5px;
-
-        }
-        p{
-            height: 160px;
-            overflow:auto;
-        }
-        .index{
-
-            top :50px;
-            position: relative;
-        }
-        .footer{
-            top :50px;
-            position: relative;
-        }
-        .drop{
-            float:left;
-
-        }
-        .drop_btn{
-            background-color: #4dd0e1;
-            border: #4dd0e1;
-            left: 20%;
-        }
-        .active-cyan-2 input.form-control[type=text]:focus:not([readonly]) {
-            border-bottom: 1px solid #4dd0e1;
-            box-shadow: 0 1px 0 0 #4dd0e1;
-        }
-        .active-cyan .fa, .active-cyan-2 .fa {
-            color: #4dd0e1;
-        }
-
-
-    </style>
-    <script src="../statics/video.js"></script>
-    <script>
-        $(document).ready(function (){
-            showMovie();
-            $("#you").hide();
-
-        })
-
-        function showMovie(){
-            $('#movie-box').empty()
-            let API_KEY = "AIzaSyBVcDkUJnBLYaHHKgj5igSSEaLlxmhFKBk"
-
-            $.ajax({
-                type: "GET",
-                url: "/api/list",
-                data: {},
-                success: function (response) {
-                     let movies = response['movies_list']
-            console.log("test2")
-            console.log(movies)
-
-            for(let i=0; i<movies.length; i++){
-                let movie = movies[i]
-                console.log(movie)
-                let name = movie['name']
-                let img = movie['img_url']
-                let summary = movie['summary']
-                let url = movie['url']
-                let id = movie[i]
-
-                let temp_Html =`
-<form action ="http://localhost:5000/result" method="GET">
-<div class="card">
-            <div class="row no-gutters">
-                <div class="col-auto">
-                    <img src="${img}" class="img-fluid" alt="">
-                </div>
-                <div class="col">
-                    <div class="card-block px-2">
-                        <h4 class="card-title">${name}</h4>
-                        <p class="card-text">${summary}</p>
-                        <a herf="${url}">${url}</a>
-                        <button onclick="turn_on_mov()" class="btn btn-primary video_btn" id="${name}" >자세히 보기</button>
-                    </div>
-                </div>
-            </div>
-            <div class="you_video"></div>
-        </div>
-        </form>`
-                videoSearch(API_KEY,name, 3)
-
-                // 7. #star-box에 temp_html을 붙입니다.
-                $('#movie-box').append(temp_Html)
-
-
-            }
-        }
-            })
-        }
-
-        function videoSearch(key,search,max){
-            let video = ''
-        $("#you_video").empty()
-
-        $.get("https://www.googleapis.com/youtube/v3/search?key="+key
-            + "&type=video&part=snippet&maxResults="+max+"&q="+search,function (data){
-            console.log(data)
-
-            data.items.forEach(item => {
-                video =
-                `
-                <div class ="you">
-                <iframe width="420" height="315" src="https://www.youtube.com/embed/${item.id.videoId}" > </iframe>
-                </div>
-                `
-
-                $("#you_video").append(video)
-            });
-        })
-
-
-    }
-function turn_on_mov(){
-    $("#video_btn").click(function (){
-                $("#you").show();
-            })
-}
-
-    </script>
 
 
 </head>
 <body>
-    <div class="Movie_poster" style="height: 400px;">
-        <div style="margin-left: 40%;width: auto; height: 400px; margin-right: 40%" id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+<div>
+    <hr width="50%" color="white" size="3">
+    <h5 style="color: white; text-align:center">MOVIE TOP 5</h5>
+    <hr width="50%" color="white" size="3">
+</div>
+<!--{{url_for('static',filename='1.jpg')}}-->
+<div class="wrap_movie"  style="" >
+    <div class="Movie_Poster" style="width: 350px; margin-left: 39%; margin-right: 40%;margin-top: 50px">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" >
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="d-block w-100" src="https://movie-phinf.pstatic.net/20200917_133/1600306215089RKFsD_JPEG/movie_image.jpg?type=m203_290_2" alt="First slide">
+                    <img  class="d-block w-100" src="{{url_for('static',filename='1.jpg')}}" alt="First slide">
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block w-100" src="https://movie-phinf.pstatic.net/20191204_91/15754257752042kHvB_JPEG/movie_image.jpg?type=m203_290_2" alt="Second slide">
+                    <img class="d-block w-100" src="{{url_for('static',filename='2.jpg')}}" alt="Second slide">
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block w-100" src="https://movie-phinf.pstatic.net/20200710_218/15943587674860cQNT_JPEG/movie_image.jpg?type=m203_290_2" alt="Third slide">
+                    <img class="d-block w-100" src="{{url_for('static',filename='3.jpg')}}" alt="Third slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="{{url_for('static',filename='4.jpg')}}" alt="Fourth slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="{{url_for('static',filename='5.jpg')}}" alt="Fifth slide">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -211,43 +70,21 @@ function turn_on_mov(){
                 <span class="sr-only">Next</span>
             </a>
         </div>
-
     </div>
+</div>
 
-    <div class ="cards" id ="movie-box">
+<div class="you_video" style="text-align: center"></div>
 
-        <div class="card">
-            <div class="row no-gutters">
-                <div class="col-auto">
-                    <img src="//placehold.it/200" class="img-fluid" alt="">
-                </div>
-                <div class="col">
-                    <div class="card-block px-2">
-                        <h4 class="card-title">Title3</h4>
-                        <p class="card-text">Description</p>
-                        <a href="#" class="btn btn-primary">BUTTON</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="row no-gutters">
-                <div class="col-auto">
-                    <img src="//placehold.it/200" class="img-fluid" alt="">
-                </div>
-                <div class="col">
-                    <div class="card-block px-2">
-                        <h4 class="card-title">Title4</h4>
-                        <p class="card-text">Description</p>
-                        <a href="#" class="btn btn-primary" onclick="location.href='detail_v1.html'">BUTTON</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
+<div class="cards" id="movie-box"></div>
+<a style="position:fixed;bottom:50px;right:3px; link: white; hover:red;" rel="nofollow"
+   href="#" title="Back to Top" style="font-size:2.0em"><img
+        src="{{url_for('static',filename='arrows_circle_up_40397.png')}}"/></a>
+<br/>
+<br/>
+<a style="position:fixed;bottom:5px;right:3px; link: white; hover:red;" rel="nofollow"
+   href="#scrollbottom" title="Go to Bottom" style="font-size:2.0em"><img
+        src="{{url_for('static',filename='arrows_circle_down_40405.png')}}"/></a>
+<!--<img src="{{url_for('static',filename='arrows_circle_down_40405.png') }}"/>-->
 <!--    <nav class ="index" aria-label="...">-->
 <!--            <ul class="pagination justify-content-center">-->
 <!--                <li class="page-item disabled">-->
@@ -261,44 +98,42 @@ function turn_on_mov(){
 <!--                </li>-->
 <!--            </ul>-->
 <!--        </nav>-->
-<div class="footer">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">대표 정보</a>
+<div class="footer" id="scrollbottom">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">대표 정보</a>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">이메일 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">chj2171@gmail.com</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">이름 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" >조민서</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">연락처 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" >010-0000-0000</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" >github 주소 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/MinSeo-Ming">https://github.com/MinSeo-Ming</a>
-                    </li>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">이메일 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">chj2171@gmail.com</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">이름 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">조민서</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">연락처 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">010-0000-0000</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link">github 주소 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://github.com/MinSeo-Ming">https://github.com/MinSeo-Ming</a>
+                </li>
 
-                </ul>
-            </div>
-        </nav>
+            </ul>
+        </div>
+    </nav>
 
 
-
-    </div>
-
+</div>
 </body>
 </html>
